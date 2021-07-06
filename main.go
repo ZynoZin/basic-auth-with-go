@@ -12,29 +12,29 @@ var (
 
 func main() {
 	handler := http.HandlerFunc(handleRequest)
-	http.Handle("/example", handler)
+	http.Handle("/", handler)
 	http.ListenAndServe(":8080", nil)
 }
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 
-	u, p, ok := r.BasicAuth()
+	user, pass, ok := r.BasicAuth()
 	if !ok {
 		fmt.Println("Error parsing basic auth")
 		w.WriteHeader(401)
 		return
-	} else if u != username {
-		fmt.Printf("Username provided is correct: %s\n", u)
+	} else if user != username {
+		fmt.Printf("Username provided is incorrect")
 		w.WriteHeader(401)
 		return
-	} else if p != password {
-		fmt.Printf("Password provided is correct: %s\n", u)
+	} else if pass != password {
+		fmt.Printf("Password provided is incorrect")
 		w.WriteHeader(401)
 		return
 	}
 	fmt.Println("Auth succeeded!\n")
-	fmt.Printf("Username: %s\n", u)
-	fmt.Printf("Password: %s\n", p)
+	fmt.Printf("Username: %s\n", user)
+	fmt.Printf("Password: %s\n", pass)
 	w.WriteHeader(200)
 	return
 }

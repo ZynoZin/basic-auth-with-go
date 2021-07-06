@@ -9,7 +9,7 @@ The user credentials are the following:
 username : abc
 password : 123
 ```
-Once the server is running, try the authentication using the curl comman in a new terminal:
+Once the server is running, try the authentication using the curl linux command in a new terminal:
 ```shell
 curl -k -u abc:123 http://0.0.0.0:8080
 ```

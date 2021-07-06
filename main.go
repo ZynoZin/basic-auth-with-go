@@ -19,20 +19,11 @@ func main() {
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 	user, pass, ok := r.BasicAuth()
-	if !ok {
-		fmt.Println("Error parsing basic auth")
+	if !ok || user != username || pass != password{
+		fmt.Println("Authentication failed!")
 		w.WriteHeader(401)
 		return
-	} else if user != username {
-		fmt.Printf("Username provided is incorrect")
-		w.WriteHeader(401)
-		return
-	} else if pass != password {
-		fmt.Printf("Password provided is incorrect")
-		w.WriteHeader(401)
-		return
-	}
-	fmt.Println("Auth succeeded!\n")
+	fmt.Println("Authentication succeeded!\n")
 	fmt.Printf("Username: %s\n", user)
 	fmt.Printf("Password: %s\n", pass)
 	w.WriteHeader(200)
